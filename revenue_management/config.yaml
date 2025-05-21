@@ -1,0 +1,131 @@
+# Configuración del Framework de Revenue Management - Hotel Playa Club
+
+# Configuración de la aplicación
+app:
+  name: "Revenue Management - Hotel Playa Club"
+  version: "1.0.0"
+  debug: true
+  hotel_name: "Hotel Playa Club"
+  hotel_location: "Cartagena, Colombia"
+  total_rooms: 79
+
+# Configuración de la base de datos
+database:
+  path: "db/revenue_management.db"
+  backup_dir: "db/backups"
+  backup_frequency: "daily"  # daily, weekly, monthly
+  auto_backup: true
+  backup_on_startup: true
+  backup_on_shutdown: true
+
+# Configuración de directorios
+directories:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  data_exports: "data/exports"
+  templates: "data/templates"
+
+# Configuración de logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: "logs/revenue_management.log"
+  max_size_mb: 10
+  backup_count: 5
+  log_to_console: true
+
+# Configuración de forecasting
+forecasting:
+  default_model: "prophet"
+  forecast_days: 90
+  seasonality_mode: "multiplicative"
+  changepoint_prior_scale: 0.05
+  seasonality_prior_scale: 10.0
+  weekly_seasonality: true
+  yearly_seasonality: true
+  daily_seasonality: false
+
+# Configuración de pricing
+pricing:
+  min_occupancy_threshold: 0.4
+  max_occupancy_threshold: 0.8
+  low_occupancy_factor: 0.9
+  high_occupancy_factor: 1.15
+  min_price_factor: 0.7
+  max_price_factor: 1.3
+  direct_channel_discount: 0.05  # 5% de descuento para canal directo
+
+# Configuración de canales
+channels:
+  - name: "Directo"
+    commission: 0.0
+    priority: 1
+    active: true
+  - name: "Booking.com"
+    commission: 0.15
+    priority: 2
+    active: true
+  - name: "Expedia"
+    commission: 0.18
+    priority: 3
+    active: true
+  - name: "Hotelbeds"
+    commission: 0.20
+    priority: 4
+    active: true
+  - name: "Despegar"
+    commission: 0.17
+    priority: 5
+    active: true
+
+# Configuración de tipos de habitación
+room_types:
+  - code: "EST"
+    name: "Estándar Triple"
+    capacity: 3
+    count: 14
+  - code: "JRS"
+    name: "Junior Suite"
+    capacity: 5
+    count: 4
+  - code: "ESC"
+    name: "Estándar Cuádruple"
+    capacity: 4
+    count: 26
+  - code: "ESD"
+    name: "Estándar Doble"
+    capacity: 2
+    count: 7
+  - code: "SUI"
+    name: "Suite"
+    capacity: 2
+    count: 1
+  - code: "KSP"
+    name: "King Superior"
+    capacity: 2
+    count: 12
+  - code: "DSP"
+    name: "Doble Superior"
+    capacity: 2
+    count: 15
+
+# Configuración de temporadas
+seasons:
+  - name: "Baja"
+    color: "#3498db"
+    months: [4, 5, 6, 11]
+    price_factor: 0.9
+  - name: "Media"
+    color: "#f39c12"
+    months: [2, 3, 9, 10]
+    price_factor: 1.0
+  - name: "Alta"
+    color: "#e74c3c"
+    months: [1, 7, 8, 12]
+    price_factor: 1.2
+
+# Configuración de Excel
+excel:
+  bookings_sheet_names: ["Reservas", "Bookings", "Reservations"]
+  stays_sheet_names: ["Estancias", "Stays", "Check-ins"]
+  summary_sheet_names: ["Resumen", "Summary", "Forecast"]
+  export_template: "templates/export_template.xlsx"
